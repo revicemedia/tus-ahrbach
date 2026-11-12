@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { legacyRedirects } from "./lib/legacyRedirects";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -14,6 +15,9 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async redirects() {
+    return legacyRedirects;
   },
 };
 

@@ -1,0 +1,37 @@
+import type { Sponsor } from '@/lib/cms/types'
+import { media } from './media'
+
+// Sammlung "Sponsoren", Stand anpfiff 2025/26. Logos können im CMS je Sponsor ergänzt werden.
+export const sponsors: Sponsor[] = [
+  { name: 'Sparkasse Westerwald-Sieg', tier: 'premium', url: 'https://www.sk-westerwald-sieg.de', logo: media.sparkasse, background: '#e00' },
+  { name: 'Absolute Teamsport', tier: 'partner', description: 'Montabaur' },
+  { name: 'Bauch & Müller Werbeagentur', tier: 'partner', description: 'Vallendar' },
+  { name: 'Bilajac Tiefbau und Pflaster', tier: 'partner' },
+  { name: 'Dach- und Bautechnik Wetzlar', tier: 'partner', description: 'Ruppach-Goldhausen' },
+  { name: 'Deutsche Vermögensberatung Juri Massing', tier: 'partner', description: 'Ruppach-Goldhausen' },
+  { name: 'EVM Energieversorgung Mittelrhein', tier: 'partner' },
+  { name: 'Fitness-Park Charly', tier: 'partner', description: 'Ruppach-Goldhausen' },
+  { name: 'Gänseblümchen Britta Bauch', tier: 'partner', description: 'Kosmetische Fußpflege, Ruppach-Goldhausen' },
+  { name: 'GBI Kommunale Infrastruktur', tier: 'partner' },
+  { name: 'Hailo', tier: 'partner' },
+  { name: 'Hotel Schlemmer, Victors Restaurant', tier: 'partner', description: 'Montabaur' },
+  { name: 'ILC-Solution', tier: 'partner', description: 'Koblenz' },
+  { name: 'Jächel Builtech Gruppe', tier: 'partner', description: 'Klimatechnik, Ruppach-Goldhausen' },
+  { name: 'Jürgen Schmidt Bedachungen', tier: 'partner', description: 'Boden' },
+  { name: 'Karl-Heinz Müller', tier: 'partner', description: 'Heizung und Sanitär, Heiligenroth' },
+  { name: 'Klumpp Architekten', tier: 'partner', description: 'Heiligenroth' },
+  { name: 'Mecklenburgische Versicherung Ingo Heinz', tier: 'partner', description: 'Ruppach-Goldhausen' },
+  { name: 'Nina Bauch Coaching', tier: 'partner', description: 'Vallendar' },
+  { name: 'Packkonzept Mittelrhein', tier: 'partner', description: 'Plaidt' },
+  { name: 'Radio-Elektro Linden', tier: 'partner', description: 'Ruppach-Goldhausen' },
+  { name: 'Restaurant in der Freimühle', tier: 'partner', description: 'Girod' },
+  { name: 'Rokutec', tier: 'partner', description: 'Kunststoffverarbeitung' },
+  { name: 'Rossbach Qualitätsumzüge', tier: 'partner' },
+  { name: 'Schreibwaren Wetzlar', tier: 'partner', description: 'Montabaur' },
+  { name: 'Sibelco', tier: 'partner', description: 'Ransbach-Baumbach' },
+  { name: 'Stendebach Stahlkonstruktionen', tier: 'partner' },
+  { name: 'Stephan Schmidt Group', tier: 'partner', description: 'Langendernbach' },
+  { name: 'Uli Kaiser Elektrotechnik', tier: 'partner' },
+  { name: 'VGMnet Netz und Infrastruktur', tier: 'partner' },
+  { name: 'Wagner Schaltanlagen', tier: 'partner' },
+]
