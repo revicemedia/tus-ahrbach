@@ -27,6 +27,11 @@
   }
 }
 
+/* Platz für die Scrollleiste immer freihalten: Beim Sperren des Scrollens (Menü, Anpfiff-Leser) verrutscht sonst der Inhalt */
+html {
+  scrollbar-gutter: stable;
+}
+
 /* Sanftes Scrollen zu Sprungzielen wie /verein/anpfiff#lesen, nicht bei reduzierter Bewegung */
 @media (prefers-reduced-motion: no-preference) {
   html {

@@ -14,9 +14,10 @@ export default function PersonCard({ person, compact = false }: { person: Person
 
   return (
     <div className={`flex h-full gap-4 border border-line bg-white ${compact ? 'p-4' : 'p-5'}`}>
-      <div className={`relative shrink-0 overflow-hidden bg-navy ${compact ? 'size-12' : 'size-16'}`}>
+      {/* Immer Hochformat 3:4, mit und ohne Foto gleich groß */}
+      <div className={`relative aspect-[3/4] shrink-0 self-start overflow-hidden bg-navy ${compact ? 'w-12' : 'w-20'}`}>
         {image ? (
-          <Image src={image.url} alt="" fill sizes="64px" className="object-cover" />
+          <Image src={image.url} alt="" fill sizes={compact ? '48px' : '80px'} style={{ objectPosition: image.focus }} className="object-cover" />
         ) : (
           <span aria-hidden="true" className={`flex h-full items-center justify-center font-extrabold text-white ${compact ? 'text-base' : 'text-xl'}`}>
             {initials}

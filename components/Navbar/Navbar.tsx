@@ -33,6 +33,12 @@ export default function Navbar({ navigation, cta }: { navigation: NavItem[]; cta
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  // Im mobilen Menü ist immer höchstens ein Bereich aufgeklappt, beim Öffnen der der aktuellen Seite
+  const [expanded, setExpanded] = useState<string | null>(null)
+  const openMobile = () => {
+    setExpanded(navigation.find((item) => item.children && isActive(item, pathname))?.label ?? null)
+    setMobileOpen(true)
+  }
   const closeMobile = useCallback(() => setMobileOpen(false), [])
   useMenuLayer(mobileOpen, closeMobile)
 
@@ -86,7 +92,7 @@ export default function Navbar({ navigation, cta }: { navigation: NavItem[]; cta
 
           <button
             type="button"
-            onClick={() => setMobileOpen(true)}
+            onClick={openMobile}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
             className="-m-2.5 inline-flex items-center justify-center p-2.5 text-navy lg:hidden"
@@ -100,7 +106,8 @@ export default function Navbar({ navigation, cta }: { navigation: NavItem[]; cta
       {/* Vollbild-Ebene außerhalb des Headers: dessen backdrop-blur würde fixed auf die Headerhöhe begrenzen */}
       {mobileOpen && (
         <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menü" className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white lg:hidden">
-          <div className="flex h-18 shrink-0 items-center justify-between border-b border-line px-6">
+          {/* Gleiche Höhe und Trennlinie (Schatten statt Rahmen) wie die Navbar, damit beim Öffnen nichts springt */}
+          <div className="flex h-18 shrink-0 items-center justify-between px-6 shadow-[0_1px_0] shadow-line">
             <Link href="/" onClick={closeMobile} className="-m-1.5 p-1.5">
               <span className="sr-only">TuS Ahrbach, zur Startseite</span>
               <Logo />
@@ -112,35 +119,31 @@ export default function Navbar({ navigation, cta }: { navigation: NavItem[]; cta
           </div>
 
           <nav aria-label="Mobil" className="flex flex-1 flex-col px-6 py-6">
-            <ul className="divide-y divide-line border-y border-line">
-              {navigation.map((item) => (
-                <li key={item.label} className="py-2">
-                  <Link
-                    href={item.href.split('#')[0]}
-                    onClick={closeMobile}
-                    aria-current={isActive(item, pathname) ? 'page' : undefined}
-                    className="flex items-center justify-between py-2 text-2xl font-extrabold tracking-tight text-navy uppercase transition-colors hover:text-red aria-[current]:text-red"
-                  >
-                    {item.label}
-                    <Icon name="chevron_right" className="size-6 text-navy/25" />
-                  </Link>
-                  {item.children && (
-                    <ul className="mb-2 grid grid-cols-2 gap-x-4">
-                      {item.children.map((child) => (
-                        <li key={child.label}>
-                          <Link
-                            href={child.href}
-                            onClick={closeMobile}
-                            className="block py-1.5 text-base font-medium text-slate-blue transition-colors hover:text-red"
-                          >
-                            {child.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
+            <ul className="divide-y divide-line">
+              {navigation.map((item) =>
+                item.children ? (
+                  <MobileSection
+                    key={item.label}
+                    item={item}
+                    pathname={pathname}
+                    expanded={expanded === item.label}
+                    onToggle={() => setExpanded((current) => (current === item.label ? null : item.label))}
+                    onNavigate={closeMobile}
+                  />
+                ) : (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      onClick={closeMobile}
+                      aria-current={isActive(item, pathname) ? 'page' : undefined}
+                      className={mobileTopLevel}
+                    >
+                      {item.label}
+                      <Icon name="chevron_right" className="size-6 text-navy/25" />
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
 
             <div className="mt-auto pt-10">
@@ -152,6 +155,62 @@ export default function Navbar({ navigation, cta }: { navigation: NavItem[]; cta
         </div>
       )}
     </>
+  )
+}
+
+const mobileTopLevel =
+  'flex w-full items-center justify-between py-4 text-left text-2xl font-extrabold tracking-tight text-navy uppercase transition-colors hover:text-red aria-[current]:text-red'
+
+// Mobiler Bereich mit Unterpunkten (z. B. Sport, Verein): Klick auf den Oberbegriff klappt auf, die Übersichtsseite ist der erste Unterpunkt
+function MobileSection({
+  item,
+  pathname,
+  expanded,
+  onToggle,
+  onNavigate,
+}: {
+  item: NavItem
+  pathname: string
+  expanded: boolean
+  onToggle: () => void
+  onNavigate: () => void
+}) {
+  const panelId = `mobile-nav-${item.label.toLowerCase()}`
+  const active = isActive(item, pathname)
+  return (
+    <li>
+      <button type="button" onClick={onToggle} aria-expanded={expanded} aria-controls={panelId} className={`${mobileTopLevel} ${active ? 'text-red' : ''}`}>
+        {item.label}
+        <Icon name="keyboard_arrow_down" className={`size-7 transition-transform duration-200 motion-reduce:transition-none ${expanded ? 'rotate-180 text-red' : 'text-navy/25'}`} />
+      </button>
+      {/* Aufklappen per grid-template-rows, damit die Höhe ohne feste Werte animiert */}
+      <div
+        id={panelId}
+        inert={!expanded}
+        className={`grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none ${expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+      >
+        <ul className="overflow-hidden">
+          {item.children?.map((child, index) => {
+            const current = child.href === pathname
+            return (
+              <li key={child.label} className={index === item.children!.length - 1 ? 'pb-4' : ''}>
+                <Link
+                  href={child.href}
+                  onClick={onNavigate}
+                  aria-current={current ? 'page' : undefined}
+                  className="group flex items-center gap-3 border-l border-line py-2.5 pl-4 transition-colors hover:border-red aria-[current]:border-red"
+                >
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-base font-bold text-navy group-hover:text-red group-aria-[current]:text-red">{child.label}</span>
+                    {child.description && <span className="block text-sm text-slate-blue">{child.description}</span>}
+                  </span>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    </li>
   )
 }
 
