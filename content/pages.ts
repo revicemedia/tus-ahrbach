@@ -1,7 +1,6 @@
 import type { Page } from '@/lib/cms/types'
 import { media } from './media'
 
-const CUP_SIGNUP = 'mailto:ahrbach-cup@tus-ahrbach.de?subject=Anmeldung%2040.%20Ahrbach-Cup'
 
 // Sammlung "Seiten". Jede Seite ist eine Liste von Blöcken, die der Vorstand später im CMS
 // frei anordnen, ergänzen und befüllen kann. Der slug ist der Pfad ohne führenden Schrägstrich,
@@ -50,12 +49,11 @@ export const pages: Page[] = [
         tone: 'navy',
         eyebrow: 'Jubiläumsturnier · 8. bis 10. Januar 2027',
         title: '40. Ahrbach-Cup',
-        text: 'Drei Tage Hallenfußball in den Kreissporthallen Montabaur: Junioren, Frauen, Senioren und Alte Herren. Seid dabei, als Team oder auf der Tribüne!',
-        facts: ['Kreissporthallen Montabaur', 'Junioren 30 € · Frauen & Senioren 40 €'],
+        text: 'Drei Tage Hallenfußball in den Kreissporthallen Montabaur: Junioren, Frauen, Senioren und Alte Herren. Die Anmeldephase ist vorbei, jetzt seid ihr auf der Tribüne gefragt!',
+        facts: ['Kreissporthallen Montabaur', 'Anmeldephase beendet'],
         highlight: '40',
         actions: [
           { label: 'Mehr zum Ahrbach-Cup', href: '/verein/ahrbach-cup' },
-          { label: 'Team anmelden', href: CUP_SIGNUP },
         ],
       },
       {
@@ -344,12 +342,12 @@ export const pages: Page[] = [
         id: 'cup-hero',
         blockType: 'hero',
         variant: 'page',
-        eyebrow: 'Hallenfußball · Kreissporthallen Montabaur',
-        title: 'Ahrbach-Cup',
-        text: 'Jedes Jahr im Januar verwandelt der TuS Ahrbach die Kreissporthallen Montabaur in ein Fußballfest: drei Tage, sieben Turniere und Mannschaften aus der ganzen Region.',
+        eyebrow: 'Jubiläumsturnier · 8. bis 10. Januar 2027',
+        title: '40. Ahrbach-Cup',
+        text: 'Zum 40. Mal verwandelt der TuS Ahrbach die Kreissporthallen Montabaur in ein Fußballfest: drei Tage, sieben Turniere und Mannschaften aus der ganzen Region.',
         image: media.cupAktion,
+        facts: ['Anmeldephase beendet', 'Auslosung Anfang Dezember'],
         actions: [
-          { label: 'Team anmelden', href: CUP_SIGNUP },
           { label: 'Als Helfer melden', href: 'mailto:ahrbach-cup@tus-ahrbach.de?subject=Helfen%20beim%20Ahrbach-Cup' },
         ],
       },
@@ -364,22 +362,11 @@ export const pages: Page[] = [
         ],
       },
       {
-        id: 'cup-jubilaeum',
-        blockType: 'callToAction',
-        tone: 'navy',
-        highlight: '40',
-        eyebrow: 'Jubiläumsturnier',
-        title: '8. bis 10. Januar 2027',
-        text: 'Zum 40. Mal laden wir Junioren-, Frauen-, Senioren- und Alt-Herren-Mannschaften zum Ahrbacher Hallen-Fußball-Turnier ein. Die Gruppenauslosung findet Anfang Dezember statt.',
-        facts: ['Startgeld Junioren 30 €', 'Frauen & Senioren 40 €', 'Meldeschluss 13. November 2026'],
-        actions: [{ label: 'Jetzt Team anmelden', href: CUP_SIGNUP }],
-      },
-      {
         id: 'cup-turniere',
         blockType: 'cards',
         eyebrow: 'Die Konkurrenzen',
         title: 'Drei Turniertage',
-        text: 'Die genauen Anstoßzeiten veröffentlichen wir hier, sobald alle Meldungen eingegangen sind. Die Gruppen werden Anfang Dezember ausgelost.',
+        text: 'Die Gruppen werden Anfang Dezember ausgelost. Danach veröffentlichen wir hier die genauen Anstoßzeiten.',
         columns: 3,
         items: [
           { meta: 'Freitag, 8. Januar', title: 'D-Junioren & Alte Herren', text: 'Auftakt am Nachmittag mit den D-Junioren, abends die Alten Herren (auf Einladung).', icon: 'sports_soccer' },
@@ -409,15 +396,14 @@ export const pages: Page[] = [
         title: 'Die Sieger 2026',
         text: 'Sieben Wettbewerbe, drei Turniertage und spannende, faire Spiele vor vollen Rängen. Die Platzierten im Überblick:',
         columns: 4,
-        tone: 'muted',
         items: [
-          { meta: 'D-Junioren', title: 'JSG Steinbach', text: '2. JFV Oberwesterwald · 3. JSG Hundsangen · 4. JSG Augst/Immendorf', icon: 'trophy' },
-          { meta: 'Alte Herren', title: 'AH Wirges', text: '2. AH Horressen · 3. AH Leuterod/Ötzingen · 4. AH Eppenrod', icon: 'trophy' },
-          { meta: 'C-Junioren', title: 'Germania Metternich', text: '2. SF Eisbachtal · 3. JFV Schieferland · 4. JSG Kreuberg/Marienhausen', icon: 'trophy' },
-          { meta: 'B-Junioren', title: 'SG Mülheim-Kärlich', text: '2. EGC Wirges · 3. SF Eisbachtal · 4. SF Westerwald', icon: 'trophy' },
-          { meta: 'A-Junioren', title: 'JSG Neitersen/Altenkirchen', text: '2. EGC Wirges · 3. JSG Wäller United Ahrbach · 4. JFV Schieferland', icon: 'trophy' },
-          { meta: 'Frauen', title: 'FC Urbar', text: '2. SV Diez-Freiendiez · 3. DJK SW Wiesbaden · 4. SV Hundsangen', icon: 'trophy' },
-          { meta: 'Senioren', title: 'SG Augst', text: '2. SG Ahrbach · 3. SV Türkiyemspor Ransbach-Baumbach · 4. SG Unnertal', icon: 'trophy' },
+          { meta: 'D-Junioren', title: 'JSG Steinbach', text: '2. JFV Oberwesterwald · 3. JSG Hundsangen', icon: 'trophy' },
+          { meta: 'Alte Herren', title: 'AH Wirges', text: '2. AH Horressen · 3. AH Leuterod/Ötzingen', icon: 'trophy' },
+          { meta: 'C-Junioren', title: 'Germania Metternich', text: '2. SF Eisbachtal · 3. JFV Schieferland', icon: 'trophy' },
+          { meta: 'B-Junioren', title: 'SG Mülheim-Kärlich', text: '2. EGC Wirges · 3. SF Eisbachtal', icon: 'trophy' },
+          { meta: 'A-Junioren', title: 'JSG Neitersen/Altenkirchen', text: '2. EGC Wirges · 3. JSG Wäller United Ahrbach', icon: 'trophy' },
+          { meta: 'Frauen', title: 'FC Urbar', text: '2. SV Diez-Freiendiez · 3. DJK SW Wiesbaden', icon: 'trophy' },
+          { meta: 'Senioren', title: 'SG Augst', text: '2. SG Ahrbach · 3. SV Türkiyemspor Ransbach-Baumbach', icon: 'trophy' },
         ],
       },
       {
@@ -427,6 +413,7 @@ export const pages: Page[] = [
         title: 'Kreissporthallen Montabaur',
         text: 'Von-Bodelschwingh-Straße 29, 56410 Montabaur (Kreissporthalle I und II)',
         columns: 3,
+        tone: 'muted',
         items: [
           { title: 'Mit dem Auto', text: 'Über die A3 (Köln – Frankfurt), Anschlussstelle Montabaur.', icon: 'directions_car', href: 'https://www.google.com/maps/dir/?api=1&destination=Von-Bodelschwingh-Stra%C3%9Fe%2029%2C%2056410%20Montabaur' },
           { title: 'Mit der Bahn', text: 'ICE-Bahnhof Montabaur an der Schnellfahrstrecke Köln – Frankfurt.', icon: 'train' },
@@ -438,18 +425,19 @@ export const pages: Page[] = [
         blockType: 'people',
         eyebrow: 'Kontakt',
         title: 'Fragen zum Turnier?',
-        text: 'Für Anmeldung, Teilnahme und alles rund um den Cup erreicht ihr die Turnierleitung unter ahrbach-cup@tus-ahrbach.de.',
+        text: 'Für Fragen zur Teilnahme und alles rund um den Cup erreicht ihr die Turnierleitung unter ahrbach-cup@tus-ahrbach.de.',
         group: 'ahrbach-cup',
       },
       {
         id: 'cup-turnierseite',
         blockType: 'callToAction',
         tone: 'red',
-        title: 'Meldet euer Team an!',
-        text: 'Meldeschluss ist der 13. November 2026. Die Plätze sind begrenzt, es zählt die Reihenfolge der Meldungen. Sagt uns per Mail, in welchen Konkurrenzen ihr startet.',
+        eyebrow: 'Meldeschluss war der 13. November 2026',
+        title: 'Die Anmeldephase ist vorbei',
+        text: 'Vielen Dank für eure Meldungen! Neue Teams können wir nicht mehr annehmen. Die Gruppen werden Anfang Dezember ausgelost, Spielpläne und alle Infos folgen hier und auf Instagram.',
         actions: [
-          { label: 'Team anmelden', href: CUP_SIGNUP },
           { label: 'Instagram @ahrbachcup', href: 'https://www.instagram.com/ahrbachcup/', external: true },
+          { label: 'Als Helfer melden', href: 'mailto:ahrbach-cup@tus-ahrbach.de?subject=Helfen%20beim%20Ahrbach-Cup' },
         ],
       },
     ],

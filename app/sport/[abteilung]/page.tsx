@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -11,6 +12,7 @@ import RichText from '@/components/RichText/RichText'
 import { Eyebrow, Section } from '@/components/ui/Section'
 import { getDepartment, getDepartments, getGroups, getPeople } from '@/lib/cms'
 import type { Group } from '@/lib/cms/types'
+import PageSkeleton from '@/components/ui/PageSkeleton'
 
 export async function generateStaticParams() {
   const departments = await getDepartments()
@@ -29,7 +31,16 @@ export async function generateMetadata({ params }: PageProps<'/sport/[abteilung]
 }
 
 // Abteilungsseite: wird automatisch aus Abteilung und ihren Gruppen erzeugt
-export default async function DepartmentPage({ params }: PageProps<'/sport/[abteilung]'>) {
+// Die Adresse (params) wird erst hinter Suspense gelesen, damit die Navigation sofort startet
+export default function DepartmentPage({ params }: PageProps<'/sport/[abteilung]'>) {
+  return (
+    <Suspense fallback={<PageSkeleton />}>
+      <DepartmentPageContent params={params} />
+    </Suspense>
+  )
+}
+
+async function DepartmentPageContent({ params }: Pick<PageProps<'/sport/[abteilung]'>, 'params'>) {
   const { abteilung } = await params
   const department = await getDepartment(abteilung)
   if (!department) notFound()

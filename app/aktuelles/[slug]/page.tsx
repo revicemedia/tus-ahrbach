@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,6 +10,7 @@ import { ActionLinks } from '@/components/ui/ActionLink'
 import { Section, SectionHeading } from '@/components/ui/Section'
 import { getNews, getNewsPost } from '@/lib/cms'
 import { formatDate, newsCategoryLabels } from '@/lib/format'
+import PageSkeleton from '@/components/ui/PageSkeleton'
 
 export async function generateStaticParams() {
   const posts = await getNews()
@@ -27,7 +29,16 @@ export async function generateMetadata({ params }: PageProps<'/aktuelles/[slug]'
   }
 }
 
-export default async function NewsPostPage({ params }: PageProps<'/aktuelles/[slug]'>) {
+// Die Adresse (params) wird erst hinter Suspense gelesen, damit die Navigation sofort startet
+export default function NewsPostPage({ params }: PageProps<'/aktuelles/[slug]'>) {
+  return (
+    <Suspense fallback={<PageSkeleton />}>
+      <NewsPostPageContent params={params} />
+    </Suspense>
+  )
+}
+
+async function NewsPostPageContent({ params }: Pick<PageProps<'/aktuelles/[slug]'>, 'params'>) {
   const { slug } = await params
   const post = await getNewsPost(slug)
   if (!post) notFound()

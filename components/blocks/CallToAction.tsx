@@ -35,7 +35,7 @@ export default function CallToAction({ block }: { block: CallToActionBlock }) {
               ))}
             </ul>
           )}
-          <ActionLinks links={block.actions} inverted className="mt-8" />
+          <ActionLinks links={block.actions} inverted onRed={red} className="mt-8" />
         </div>
       </div>
     </section>

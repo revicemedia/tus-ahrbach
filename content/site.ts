@@ -41,7 +41,7 @@ export const site: SiteSettings = {
         { label: 'Vorstand', href: '/verein/vorstand', description: 'Ansprechpartner im Verein' },
         { label: 'Geschichte', href: '/verein/geschichte', description: 'Seit 1921 in Ruppach und Goldhausen' },
         { label: 'Ahrbach-Cup', href: '/verein/ahrbach-cup', description: 'Unser Hallenturnier im Januar' },
-        { label: 'anpfiff', href: '/verein/anpfiff', description: 'Unsere Vereinszeitschrift' },
+        { label: 'Anpfiff', href: '/verein/anpfiff', description: 'Unsere Vereinszeitschrift' },
         { label: 'Sponsoren', href: '/sponsoren', description: 'Danke an unsere Partner' },
       ],
     },

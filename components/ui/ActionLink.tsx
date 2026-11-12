@@ -2,12 +2,14 @@ import Link from 'next/link'
 import Icon from '@/components/Icon/Icon'
 import type { LinkItem } from '@/lib/cms/types'
 
-type Variant = 'primary' | 'secondary' | 'inverted' | 'outline-inverted' | 'text'
+type Variant = 'primary' | 'secondary' | 'inverted' | 'inverted-on-red' | 'outline-inverted' | 'text'
 
 const variants: Record<Variant, string> = {
   primary: 'bg-red text-white hover:bg-navy',
   secondary: 'border border-navy text-navy hover:bg-navy hover:text-white',
   inverted: 'bg-white text-navy hover:bg-red hover:text-white',
+  // auf roten Flächen würde der rote Hover-Zustand verschwinden
+  'inverted-on-red': 'bg-white text-navy hover:bg-navy hover:text-white',
   'outline-inverted': 'border border-white/70 text-white hover:border-white hover:bg-white/10',
   text: 'px-0! py-0! text-red hover:text-navy',
 }
@@ -38,8 +40,18 @@ export default function ActionLink({ link, variant = 'primary', className = '' }
   )
 }
 
-// Erster Link als Hauptbutton, alle weiteren zurückhaltender
-export function ActionLinks({ links, inverted = false, className = '' }: { links?: LinkItem[]; inverted?: boolean; className?: string }) {
+// Erster Link als Hauptbutton, alle weiteren zurückhaltender. onRed: Hintergrund ist rot statt navy.
+export function ActionLinks({
+  links,
+  inverted = false,
+  onRed = false,
+  className = '',
+}: {
+  links?: LinkItem[]
+  inverted?: boolean
+  onRed?: boolean
+  className?: string
+}) {
   if (!links?.length) return null
   return (
     <div className={`flex flex-col gap-3 sm:flex-row sm:flex-wrap ${className}`}>
@@ -47,7 +59,7 @@ export function ActionLinks({ links, inverted = false, className = '' }: { links
         <ActionLink
           key={link.href + link.label}
           link={link}
-          variant={index === 0 ? (inverted ? 'inverted' : 'primary') : inverted ? 'outline-inverted' : 'secondary'}
+          variant={index === 0 ? (inverted ? (onRed ? 'inverted-on-red' : 'inverted') : 'primary') : inverted ? 'outline-inverted' : 'secondary'}
         />
       ))}
     </div>

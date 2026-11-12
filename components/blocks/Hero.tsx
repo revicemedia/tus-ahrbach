@@ -65,6 +65,15 @@ function PageHero({ block, priority }: { block: HeroBlock; priority: boolean }) 
           {block.eyebrow && <p className="text-xs font-semibold tracking-[0.25em] text-white/60 uppercase">{block.eyebrow}</p>}
           <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-balance text-white uppercase sm:text-5xl">{block.title}</h1>
           {block.text && <p className="mt-6 text-base/7 text-pretty text-white/75 sm:text-lg/8">{block.text}</p>}
+          {block.facts && (
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {block.facts.map((fact) => (
+                <li key={fact} className="border border-white/30 px-3 py-1 text-xs font-medium text-white/90">
+                  {fact}
+                </li>
+              ))}
+            </ul>
+          )}
           <ActionLinks links={block.actions} inverted className="mt-8" />
         </div>
       </div>

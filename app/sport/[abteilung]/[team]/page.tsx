@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -11,6 +12,7 @@ import ActionLink, { ActionLinks } from '@/components/ui/ActionLink'
 import { Eyebrow, Section, SectionHeading } from '@/components/ui/Section'
 import { getDepartment, getGroup, getGroups } from '@/lib/cms'
 import { coachLabel, sessionTime, weekdayLabel } from '@/lib/format'
+import PageSkeleton from '@/components/ui/PageSkeleton'
 
 export async function generateStaticParams() {
   const groups = await getGroups()
@@ -31,7 +33,16 @@ export async function generateMetadata({ params }: PageProps<'/sport/[abteilung]
 }
 
 // Teamseite: Steckbrief, Training, Trainerteam und Kontakt einer Mannschaft oder Gruppe
-export default async function TeamPage({ params }: PageProps<'/sport/[abteilung]/[team]'>) {
+// Die Adresse (params) wird erst hinter Suspense gelesen, damit die Navigation sofort startet
+export default function TeamPage({ params }: PageProps<'/sport/[abteilung]/[team]'>) {
+  return (
+    <Suspense fallback={<PageSkeleton />}>
+      <TeamPageContent params={params} />
+    </Suspense>
+  )
+}
+
+async function TeamPageContent({ params }: Pick<PageProps<'/sport/[abteilung]/[team]'>, 'params'>) {
   const { abteilung, team } = await params
   const [group, department] = await Promise.all([getGroup(abteilung, team), getDepartment(abteilung)])
   if (!group || !department) notFound()
