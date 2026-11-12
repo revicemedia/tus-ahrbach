@@ -19,7 +19,7 @@ export const site: SiteSettings = {
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Sportplatz+Ruppach-Goldhausen',
   },
   socials: [
-    { platform: 'instagram', label: '@sgahrbach', href: 'https://www.instagram.com/sgahrbach/' },
+    { platform: 'instagram', label: '@tus.ahrbach', href: 'https://www.instagram.com/tus.ahrbach/' },
     { platform: 'facebook', label: 'TuS Ahrbach', href: 'https://www.facebook.com/tusahrbach.de/' },
   ],
   navigation: [

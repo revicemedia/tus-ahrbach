@@ -9,6 +9,15 @@
   --color-red-700: #b4252c;
   --color-paper: #f6f5f2;
   --color-line: #e7e5e0;
+
+  /* Laufband (Sponsoren): Inhalt liegt doppelt nebeneinander, nach der halben Breite beginnt er nahtlos von vorn.
+     Die Dauer setzt die Komponente passend zur Anzahl der Einträge. */
+  --animate-marquee: marquee 60s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @layer base {

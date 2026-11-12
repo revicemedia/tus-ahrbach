@@ -10,6 +10,8 @@ export default async function Sponsors({ block }: { block: SponsorsBlock }) {
   const partners = sponsors.filter((sponsor) => sponsor.tier === 'partner')
 
   if (block.variant === 'compact') {
+    // Partner abwechselnd auf zwei Reihen verteilt, die gegenläufig laufen
+    const rows = [partners.filter((_, index) => index % 2 === 0), partners.filter((_, index) => index % 2 === 1)]
     return (
       <Section>
         <SectionHeading
@@ -18,19 +20,23 @@ export default async function Sponsors({ block }: { block: SponsorsBlock }) {
           text={block.text}
           action={<ActionLink link={{ label: 'Alle Sponsoren', href: '/sponsoren' }} variant="text" />}
         />
-        <div className="grid gap-6 lg:grid-cols-[1fr_2fr] lg:items-center">
-          <ul className="grid gap-4">
-            {premium.map((sponsor) => (
-              <li key={sponsor.name}>
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:items-stretch">
+          {premium.map((sponsor) => (
+            <div key={sponsor.name} className="flex flex-col">
+              <p className="mb-2 text-xs font-semibold tracking-[0.2em] text-slate-blue uppercase">Hauptsponsor</p>
+              <div className="flex-1">
                 <SponsorTile sponsor={sponsor} large />
-              </li>
-            ))}
-          </ul>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-slate-blue">
-            {partners.map((sponsor) => (
-              <li key={sponsor.name}>{sponsor.name}</li>
-            ))}
-          </ul>
+              </div>
+            </div>
+          ))}
+          <div className="flex min-w-0 flex-col">
+            <p className="mb-2 text-xs font-semibold tracking-[0.2em] text-slate-blue uppercase">Partner und Förderer</p>
+            <div className="group flex flex-1 flex-col justify-center gap-3 border border-line bg-paper py-5">
+              {rows.map((row, index) => (
+                <Marquee key={index} items={row.map((sponsor) => sponsor.name)} reverse={index === 1} />
+              ))}
+            </div>
+          </div>
         </div>
       </Section>
     )
@@ -76,5 +82,33 @@ function SponsorTile({ sponsor, large = false }: { sponsor: Sponsor; large?: boo
     </a>
   ) : (
     <div className={classes}>{body}</div>
+  )
+}
+
+// Endlos laufende Namensleiste. Hält bei Hover an; bei reduzierter Bewegung steht sie und lässt sich seitlich wischen.
+function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
+  // ca. 4 Sekunden pro Name, damit beide Reihen gleich ruhig laufen
+  const duration = `${items.length * 4}s`
+  const list = (hidden: boolean) => (
+    <ul aria-hidden={hidden || undefined} className={`flex shrink-0 items-center ${hidden ? 'motion-reduce:hidden' : ''}`}>
+      {items.map((name) => (
+        <li key={name} className="flex items-center text-sm font-bold whitespace-nowrap text-navy sm:text-base">
+          {name}
+          <span aria-hidden="true" className="mx-6 size-1.5 rotate-45 bg-red" />
+        </li>
+      ))}
+    </ul>
+  )
+  return (
+    <div className="relative overflow-hidden mask-x-from-90% motion-reduce:overflow-x-auto">
+      <div
+        style={{ animationDuration: duration }}
+        className={`flex w-max animate-[marquee_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none ${reverse ? '[animation-direction:reverse]' : ''}`}
+      >
+        {list(false)}
+        {/* zweite Kopie für den nahtlosen Übergang, für Screenreader ausgeblendet */}
+        {list(true)}
+      </div>
+    </div>
   )
 }
