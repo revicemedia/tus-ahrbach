@@ -13,9 +13,9 @@ export default function PersonCard({ person, compact = false }: { person: Person
     .join('')
 
   return (
-    <div className={`flex h-full gap-4 border border-line bg-white ${compact ? 'p-4' : 'p-5'}`}>
+    <div className={`flex h-full gap-4 border border-line bg-white ${compact ? 'items-center p-4' : 'p-5'}`}>
       {/* Immer Hochformat 3:4, mit und ohne Foto gleich groß */}
-      <div className={`relative aspect-[3/4] shrink-0 self-start overflow-hidden bg-navy ${compact ? 'w-12' : 'w-20'}`}>
+      <div className={`relative aspect-[3/4] shrink-0 overflow-hidden bg-navy ${compact ? 'w-12' : 'w-20 self-start'}`}>
         {image ? (
           <Image src={image.url} alt="" fill sizes={compact ? '48px' : '80px'} style={{ objectPosition: image.focus }} className="object-cover" />
         ) : (
@@ -28,7 +28,7 @@ export default function PersonCard({ person, compact = false }: { person: Person
         <p className="font-extrabold text-navy">{person.name}</p>
         {person.role && <p className="text-sm text-slate-blue">{person.role}</p>}
         {(person.email || person.phone) && (
-          <ul className="mt-2 space-y-1 text-sm">
+          <ul className={`space-y-1 text-sm ${compact ? 'mt-1' : 'mt-1.5'}`}>
             {person.email && (
               <li>
                 <a href={`mailto:${person.email}`} className="flex items-center gap-1.5 font-semibold [overflow-wrap:anywhere] text-red transition-colors hover:text-navy">
