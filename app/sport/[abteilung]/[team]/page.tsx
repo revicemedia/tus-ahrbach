@@ -11,7 +11,7 @@ import RichText from '@/components/RichText/RichText'
 import ActionLink, { ActionLinks } from '@/components/ui/ActionLink'
 import { Eyebrow, Section, SectionHeading } from '@/components/ui/Section'
 import { getDepartment, getGroup, getGroups } from '@/lib/cms'
-import { coachLabel, sessionTime, weekdayLabel } from '@/lib/format'
+import { sessionTime, weekdayLabel } from '@/lib/format'
 import PageSkeleton from '@/components/ui/PageSkeleton'
 
 export async function generateStaticParams() {
@@ -55,10 +55,6 @@ async function TeamPageContent({ params }: Pick<PageProps<'/sport/[abteilung]/[t
     group.squads && { label: 'Mannschaften', value: `${group.squads} Teams` },
     group.season && { label: 'Saison', value: group.season },
   ].filter((fact) => !!fact)
-
-  // Kontakt: ausdrücklicher Kontakt, sonst die erste erreichbare Person aus dem Trainerteam
-  const reachableCoach = group.coaches.find((coach) => coach.phone || coach.email)
-  const contact = group.contact ?? (reachableCoach && { ...reachableCoach, role: coachLabel(reachableCoach) })
 
   return (
     <>
@@ -130,7 +126,14 @@ async function TeamPageContent({ params }: Pick<PageProps<'/sport/[abteilung]/[t
               {group.coaches.length > 0 ? (
                 <CoachList coaches={group.coaches} />
               ) : (
-                <p className="text-slate-blue">Für diese Gruppe suchen wir aktuell Verstärkung im Trainerteam. Interesse? Meldet euch beim Kontakt rechts.</p>
+                <div className="space-y-6">
+                  <p className="text-slate-blue">Für diese Gruppe suchen wir aktuell Verstärkung im Trainerteam. Interesse? {group.contact ? 'Meldet euch hier:' : 'Meldet euch beim Verein.'}</p>
+                  {group.contact && (
+                    <div className="max-w-md">
+                      <PersonCard person={group.contact} />
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -163,13 +166,6 @@ async function TeamPageContent({ params }: Pick<PageProps<'/sport/[abteilung]/[t
                 <p className="mt-4 text-sm/6 text-slate-blue">Die Trainingszeiten werden saisonweise abgestimmt. Fragt einfach beim Trainerteam nach.</p>
               )}
             </div>
-
-            {contact && (
-              <div>
-                <h2 className="mb-3 text-xs font-semibold tracking-[0.2em] text-red uppercase">Kontakt fürs Probetraining</h2>
-                <PersonCard person={contact} />
-              </div>
-            )}
 
             <ActionLinks links={[{ label: 'Mitglied werden', href: '/mitglied-werden' }, ...(group.links ?? [])]} className="sm:flex-col" />
           </aside>

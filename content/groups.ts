@@ -15,7 +15,6 @@ const seniorenleitung: Contact = { name: 'Peter Olbrich', role: 'Abteilungsleite
 const handballleitung: Contact = { name: 'Oliver Kollig', role: 'Abteilungsleiter Handball', email: 'handball@tus-ahrbach.de' }
 const turnleitung: Contact = { name: 'Julija Ismajli', role: 'Abteilungsleiterin Tanzen & Turnen', email: 'julija.ismajli@tus-ahrbach.de' }
 
-const waellerUnited = { label: 'JSG Wäller United', href: 'https://jsgwaellerunited.vercel.app', external: true }
 
 export const groups: Group[] = [
   // ---------- Fußball: Herren ----------
@@ -124,25 +123,58 @@ export const groups: Group[] = [
 
   // ---------- Fußball: Junioren ----------
   {
-    slug: 'a-junioren',
+    slug: 'a1-junioren',
     department: 'fussball',
     section: 'Junioren',
-    name: 'A-Junioren',
+    name: 'A1-Junioren',
     ageLabel: 'U19 · Jahrgang 2008/2009',
     team: 'JSG Wäller United',
-    squads: 2,
+    league: 'Rheinlandliga',
     season: SEASON,
     audience: 'jugend',
-    sessions: [],
+    sessions: [
+      { day: 'do', start: '20:00', end: '21:30', location: 'Sporthalle Girod' },
+      { day: 'sa', start: '08:00', end: '10:00', location: 'Sporthalle Heiligenroth' },
+    ],
     coaches: [
-      { name: 'Batuhan Zeybek', role: 'trainer', squad: 'A1', phone: '0171 2791010', email: 'batuhan.zeybek99@hotmail.com' },
-      { name: 'Carlos Bauch', role: 'trainer', squad: 'A1', phone: '0152 07805913', email: 'carlosbauch@icloud.com' },
-      { name: 'Fabian Hanso', role: 'torwarttrainer', squad: 'A1', phone: '0151 64310456', email: 'f.hanso@revice-media.com' },
-      { name: 'Stefan Baumann', role: 'trainer', squad: 'A2', phone: '0179 2017202' },
+      { name: 'Batuhan Zeybek', role: 'trainer', phone: '0171 2791010', email: 'batuhan.zeybek99@hotmail.com' },
+      { name: 'Carlos Bauch', role: 'trainer', phone: '0152 07805913', email: 'carlosbauch@icloud.com' },
+      { name: 'Fabian Hanso', role: 'torwarttrainer', phone: '0151 64310456', email: 'f.hanso@revice-media.com' },
     ],
     contact: jugendleitung,
     image: teamMedia.aJunioren,
-    links: [waellerUnited],
+    // TODO: Beispieltext, vom Trainerteam prüfen und anpassen lassen
+    teaser: 'Rheinlandliga, viele neue Gesichter und der letzte Schritt vor dem Herrenfußball.',
+    description: [
+      { type: 'paragraph', text: 'Mit der **A1 in der Rheinlandliga** tritt die JSG Wäller United in der höchsten Spielklasse des Fußballverbands Rheinland an. Woche für Woche geht es gegen die stärksten Nachwuchsteams der Region, und genau daran wollen unsere Jungs wachsen.' },
+      { type: 'paragraph', text: 'Zur neuen Saison sind **viele neue Spieler** dazugekommen, aus dem eigenen B-Jugend-Jahrgang und von Vereinen aus der Umgebung. Das Trainerteam setzt auf einen breiten Kader, in dem sich jeder über Leistung im Training für Einsätze empfehlen kann.' },
+      { type: 'paragraph', text: 'Du bist Jahrgang 2008 oder 2009 und willst auf hohem Niveau Fußball spielen? Melde dich beim Trainerteam und komm zum Probetraining.' },
+    ],
+  },
+  {
+    slug: 'a2-junioren',
+    department: 'fussball',
+    section: 'Junioren',
+    name: 'A2-Junioren',
+    ageLabel: 'U19 · Jahrgang 2008/2009',
+    team: 'JSG Wäller United',
+    // TODO: Spielklasse bestätigen
+    league: 'Kreisoberliga',
+    season: SEASON,
+    audience: 'jugend',
+    // TODO: Trainingszeiten der A2 ergänzen
+    sessions: [],
+    coaches: [{ name: 'Stefan Baumann', role: 'trainer', phone: '0179 2017202' }],
+    contact: jugendleitung,
+    // TODO: eigenes Mannschaftsfoto der A2
+    image: teamMedia.aJunioren,
+    // TODO: Beispieltext, vom Trainerteam prüfen und anpassen lassen
+    teaser: 'Spielpraxis für alle und das Sprungbrett in die A1 und den Herrenfußball.',
+    description: [
+      { type: 'paragraph', text: 'Die **A2 spielt in der Kreisoberliga** und sorgt dafür, dass jeder Spieler im älteren Jugendjahrgang regelmäßig auf dem Platz steht. Hier zählen Spielpraxis, Entwicklung und der Spaß am Mannschaftssport.' },
+      { type: 'paragraph', text: 'Die A2 arbeitet eng mit der A1 zusammen: Wer sich empfiehlt, rückt auf. Ziel ist, möglichst viele Spieler an die **Herrenmannschaften der SG Ahrbach** heranzuführen.' },
+      { type: 'paragraph', text: 'Du bist Jahrgang 2008 oder 2009 und suchst ein Team? Melde dich beim Trainerteam und komm zum Probetraining.' },
+    ],
   },
   {
     slug: 'b-junioren',
@@ -162,7 +194,6 @@ export const groups: Group[] = [
     ],
     contact: jugendleitung,
     image: teamMedia.bJunioren,
-    links: [waellerUnited],
   },
   {
     slug: 'c-junioren',
@@ -187,7 +218,6 @@ export const groups: Group[] = [
     contact: jugendleitung,
     image: teamMedia.cJunioren,
     teaser: 'Drei Teams, regelmäßig zu Gast bei unseren Freunden, den Eindse Boys.',
-    links: [waellerUnited],
   },
   {
     slug: 'd-junioren',

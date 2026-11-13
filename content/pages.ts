@@ -496,7 +496,7 @@ export const pages: Page[] = [
         eyebrow: 'Fragen?',
         title: 'Eure Ansprechpartner',
         text: 'Fragen zu Beiträgen, Kündigung oder Adressänderung beantwortet die Mitgliederverwaltung.',
-        people: ['christof-schmidt', 'wolfgang-schmitt'],
+        people: ['wolfgang-schmitt', 'christof-schmidt'],
       },
     ],
   },

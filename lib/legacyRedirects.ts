@@ -8,7 +8,7 @@ const sportPages: Record<string, string> = {
   '2994': 'fussball',
   foerderverein: 'fussball',
   'msg-ahrbach-montabaur': 'fussball',
-  'a-junioren-fussball': 'fussball/a-junioren',
+  'a-junioren-fussball': 'fussball/a1-junioren',
   'b-junioren-fussball': 'fussball/b-junioren',
   'c1-junioren-fussball': 'fussball/c-junioren',
   'c2-junioren-fussball': 'fussball/c-junioren',

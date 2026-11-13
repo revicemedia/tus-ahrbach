@@ -74,9 +74,7 @@ export const site: SiteSettings = {
     },
     {
       title: 'Partner',
-      // TODO: endgültige Adresse der JSG Wäller United eintragen
       links: [
-        { label: 'JSG Wäller United', href: 'https://jsgwaellerunited.vercel.app', external: true },
         { label: 'Brinkenlauf', href: 'https://www.brinkenlauf.de', external: true },
       ],
     },

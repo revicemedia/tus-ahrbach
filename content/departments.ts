@@ -24,7 +24,6 @@ export const departments: Department[] = [
       {
         name: 'JSG Wäller United',
         description: 'A- bis C-Junioren',
-        link: { label: 'Zur JSG Wäller United', href: 'https://jsgwaellerunited.vercel.app', external: true },
       },
       { name: 'JSG Ahrbach-Steinefrenz-Staudt', description: 'D-Junioren bis Bambini, mit Spvgg. Steinefrenz/Weroth, SV Staudt, SV Heiligenroth und TuS Girod/Kleinholbach' },
       { name: 'MSG Ahrbach-Montabaur', description: 'Juniorinnen, gemeinsam mit dem 1. FFC Montabaur' },
