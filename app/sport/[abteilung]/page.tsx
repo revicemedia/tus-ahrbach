@@ -109,10 +109,10 @@ async function DepartmentPageContent({ params }: Pick<PageProps<'/sport/[abteilu
 
       {/* Sprungmarken zu den Bereichen */}
       <nav aria-label="Bereiche" className="sticky top-18 z-30 border-b border-line bg-white/95 backdrop-blur">
-        <ul className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-6 lg:px-8">
+        <ul className="mx-auto flex max-w-7xl gap-x-4 overflow-x-auto px-6 sm:gap-x-6 lg:px-8">
           {sections.map((section) => (
-            <li key={section.title}>
-              <a href={`#${sectionId(section.title)}`} className="block px-3 py-3 text-sm font-semibold whitespace-nowrap text-navy uppercase transition-colors hover:text-red">
+            <li key={section.title} className="shrink-0">
+              <a href={`#${sectionId(section.title)}`} className="block py-3 text-sm font-semibold whitespace-nowrap text-navy uppercase transition-colors hover:text-red">
                 {section.title}
                 <span className="ml-1.5 text-slate-blue">{section.groups.length}</span>
               </a>

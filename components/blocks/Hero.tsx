@@ -28,10 +28,10 @@ function HomeHero({ block, priority }: { block: HeroBlock; priority: boolean }) 
       <div className="mx-auto flex min-h-[34rem] max-w-7xl items-end px-6 pt-32 pb-16 lg:min-h-[min(44rem,calc(100svh-5rem))] lg:items-center lg:px-8 lg:py-24">
         <div className="max-w-2xl">
           {block.eyebrow && <p className={`text-xs font-semibold tracking-[0.25em] text-white/70 uppercase [animation-delay:150ms] ${rise}`}>{block.eyebrow}</p>}
-          <h1 className={`mt-5 text-4xl font-extrabold tracking-tight text-balance text-white uppercase [animation-delay:300ms] sm:text-6xl ${rise}`}>
+          <h1 className={`mt-5 -ml-[0.05em] text-4xl font-extrabold text-balance text-white uppercase [animation-delay:300ms] sm:text-6xl ${rise}`}>
             {block.title}
           </h1>
-          {block.text && <p className={`mt-6 max-w-xl text-base/7 text-white/80 [animation-delay:450ms] sm:text-lg/8 ${rise}`}>{block.text}</p>}
+          {block.text && <p className={`mt-5 max-w-xl text-base/7 text-white/80 [animation-delay:450ms] sm:text-lg/8 ${rise}`}>{block.text}</p>}
           {block.facts && (
             <ul className={`mt-6 flex flex-wrap gap-2 [animation-delay:525ms] ${rise}`}>
               {block.facts.map((fact) => (
@@ -41,7 +41,7 @@ function HomeHero({ block, priority }: { block: HeroBlock; priority: boolean }) 
               ))}
             </ul>
           )}
-          <ActionLinks links={block.actions} inverted className={`mt-10 [animation-delay:600ms] ${rise}`} />
+          <ActionLinks links={block.actions} inverted className={`mt-5 [animation-delay:600ms] ${rise}`} />
         </div>
       </div>
       {/* rote Kante als Markenakzent */}

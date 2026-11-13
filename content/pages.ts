@@ -20,7 +20,6 @@ export const pages: Page[] = [
         title: 'Der lebendige Sportverein im Westerwald',
         text: 'Fußball, Handball, Tanzen und Turnen: Beim TuS Ahrbach findet die ganze Familie ihren Sport, vom Eltern-Kind-Turnen bis zu den Alten Herren.',
         image: media.fussballFinale,
-        facts: ['Fußball', 'Handball', 'Tanzen & Turnen'],
         actions: [
           { label: 'Sport finden', href: '/sport' },
           { label: 'Mitglied werden', href: '/mitglied-werden' },
