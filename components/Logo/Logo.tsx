@@ -7,7 +7,7 @@ export default function Logo({ inverted = false }: { inverted?: boolean }) {
       <Image alt="" src="/logo.png" width={88} height={100} preload className="h-11 w-auto" />
       <span className={`text-lg/5 font-extrabold tracking-tight uppercase ${inverted ? 'text-white' : 'text-navy'}`}>
         TuS Ahrbach
-        <span className="block text-[0.65rem]/4 font-semibold tracking-[0.2em] text-red">1921 e.V. · #miteinander</span>
+        <span className="block text-[0.65rem]/4 font-semibold tracking-[0.2em] text-red">1921 e.V.</span>
       </span>
     </span>
   )

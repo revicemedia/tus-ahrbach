@@ -271,6 +271,8 @@ export type NewsListBlock = BlockBase & {
   // ohne limit alle Beiträge
   limit?: number
   showAllLink?: boolean
+  // Suchfeld über der Liste, filtert die Beiträge beim Tippen
+  searchable?: boolean
 }
 
 export type EventListBlock = BlockBase & {

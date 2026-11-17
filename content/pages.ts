@@ -354,10 +354,10 @@ export const pages: Page[] = [
         id: 'cup-stats',
         blockType: 'stats',
         items: [
-          { value: '40.', label: 'Auflage im Januar 2027' },
+          { value: '40.', label: 'Auflage' },
+          { value: '100', label: 'Teams' },
           { value: '3', label: 'Turniertage' },
-          { value: '7', label: 'Konkurrenzen von D-Junioren bis Alte Herren' },
-          { value: '4', label: 'Preisränge in jeder Konkurrenz' },
+          { value: '7', label: 'Konkurrenzen' },
         ],
       },
       {
@@ -546,7 +546,7 @@ export const pages: Page[] = [
     description: 'Neuigkeiten aus allen Abteilungen des TuS Ahrbach.',
     layout: [
       { id: 'aktuelles-hero', blockType: 'hero', variant: 'page', eyebrow: 'News', title: 'Aktuelles', text: 'Berichte, Ankündigungen und Neuigkeiten aus allen Abteilungen.' },
-      { id: 'aktuelles-liste', blockType: 'newsList', title: 'Alle Beiträge' },
+      { id: 'aktuelles-liste', blockType: 'newsList', title: 'Alle Beiträge', searchable: true },
     ],
   },
   {

@@ -34,4 +34,5 @@ export const people: Person[] = [
   // Turnierleitung Ahrbach-Cup (Nummern laut anpfiff 2026/27 und Turnierplakat)
   { id: 'cup-rudolf-bauch', name: 'Rudolf Bauch', role: 'Turnierleitung Ahrbach-Cup', group: 'ahrbach-cup', email: 'ahrbach-cup@tus-ahrbach.de', phone: '0160 5502383', image: portrait('rudolf-bauch', 'Rudolf Bauch') },
   { id: 'cup-raimund-schaefer', name: 'Raimund Schäfer', role: 'Turnierleitung Ahrbach-Cup', group: 'ahrbach-cup', email: 'ahrbach-cup@tus-ahrbach.de', phone: '0173 7251086', image: portrait('raimund-schaefer', 'Raimund Schäfer') },
+  { id: 'cup-carlos-bauch', name: 'Carlos Bauch', role: 'Turnierleitung Ahrbach-Cup', group: 'ahrbach-cup', email: 'ahrbach-cup@tus-ahrbach.de', phone: '0152 07805913' },
 ]
