@@ -36,8 +36,10 @@ export const site: SiteSettings = {
     {
       label: 'Verein',
       href: '/verein',
+      featureNews: true,
       children: [
         { label: 'Über uns', href: '/verein', description: 'Der TuS Ahrbach auf einen Blick' },
+        { label: 'Aktuelles', href: '/aktuelles', description: 'Neuigkeiten aus allen Abteilungen' },
         { label: 'Vorstand', href: '/verein/vorstand', description: 'Ansprechpartner im Verein' },
         { label: 'Geschichte', href: '/verein/geschichte', description: 'Seit 1921 in Ruppach und Goldhausen' },
         { label: 'Ahrbach-Cup', href: '/verein/ahrbach-cup', description: 'Unser Hallenturnier im Januar' },
@@ -45,7 +47,6 @@ export const site: SiteSettings = {
         { label: 'Sponsoren', href: '/sponsoren', description: 'Danke an unsere Partner' },
       ],
     },
-    { label: 'Aktuelles', href: '/aktuelles' },
     { label: 'Termine', href: '/termine' },
     { label: 'Kontakt', href: '/kontakt' },
   ],

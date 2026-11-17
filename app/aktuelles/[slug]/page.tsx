@@ -60,7 +60,7 @@ async function NewsPostPageContent({ params }: Pick<PageProps<'/aktuelles/[slug]
             <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-balance text-white uppercase sm:text-5xl">{post.title}</h1>
             <p className="mt-6 text-lg/8 text-white/75">{post.excerpt}</p>
           </div>
-          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1.5 bg-red" />
+          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-0.5 bg-red" />
         </header>
 
         <div className="mx-auto max-w-3xl px-6 py-12 lg:px-0">

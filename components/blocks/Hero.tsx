@@ -45,7 +45,7 @@ function HomeHero({ block, priority }: { block: HeroBlock; priority: boolean }) 
         </div>
       </div>
       {/* rote Kante als Markenakzent */}
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1.5 bg-red" />
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-0.5 bg-red" />
     </section>
   )
 }
@@ -77,7 +77,7 @@ function PageHero({ block, priority }: { block: HeroBlock; priority: boolean }) 
           <ActionLinks links={block.actions} inverted className="mt-8" />
         </div>
       </div>
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1.5 bg-red" />
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-0.5 bg-red" />
     </section>
   )
 }

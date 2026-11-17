@@ -195,6 +195,8 @@ export type NavItem = {
   href: string
   description?: string
   children?: NavItem[]
+  // Aufklappmenü als Mega-Menü mit den neuesten News daneben
+  featureNews?: boolean
 }
 
 export type SiteSettings = {

@@ -3,7 +3,7 @@ import { Google_Sans_Flex } from 'next/font/google'
 import './globals.css'
 import Footer from '@/components/Footer/Footer'
 import Navbar from '@/components/Navbar/Navbar'
-import { getSite } from '@/lib/cms'
+import { getNews, getSite } from '@/lib/cms'
 
 // Gleiche Schrift wie der Ahrbach Cup; next/font liefert sie vom eigenen Server aus.
 // Für Google Sans Flex kennt Next.js keine Metriken für eine angepasste Ersatzschrift,
@@ -26,14 +26,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout({ children }: LayoutProps<'/'>) {
-  const site = await getSite()
+  const [site, news] = await Promise.all([getSite(), getNews(2)])
+  // Nur die Felder für die Menü-Teaser an den Client geben, nicht den ganzen Artikeltext
+  const latestNews = news.map(({ slug, title, date, category, image }) => ({ slug, title, date, category, image }))
   return (
     <html lang="de" data-scroll-behavior="smooth" className={`${googleSansFlex.className} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <a href="#inhalt" className="sr-only z-50 bg-red px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2">
           Zum Inhalt springen
         </a>
-        <Navbar navigation={site.navigation} cta={site.cta} />
+        <Navbar navigation={site.navigation} cta={site.cta} latestNews={latestNews} />
         <main id="inhalt" className="flex-1">
           {children}
         </main>

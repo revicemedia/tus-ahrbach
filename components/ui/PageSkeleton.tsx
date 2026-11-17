@@ -9,7 +9,7 @@ export default function PageSkeleton() {
           <div className="mt-8 h-4 w-full max-w-xl animate-pulse bg-white/10" />
           <div className="mt-3 h-4 w-2/3 max-w-lg animate-pulse bg-white/10" />
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-1.5 bg-red" />
+        <div className="absolute inset-x-0 bottom-0 h-0.5 bg-red" />
       </div>
       <div className="min-h-96 bg-white" />
     </div>

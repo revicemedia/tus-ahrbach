@@ -1,11 +1,15 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Icon from '@/components/Icon/Icon'
 import Logo from '@/components/Logo/Logo'
-import type { LinkItem, NavItem } from '@/lib/cms/types'
+import type { LinkItem, NavItem, NewsPost } from '@/lib/cms/types'
+import { formatDate, newsCategoryLabels } from '@/lib/format'
+
+export type NewsTeaser = Pick<NewsPost, 'slug' | 'title' | 'date' | 'category' | 'image'>
 
 // Ein Punkt ist aktiv, wenn die aktuelle Seite er selbst oder eine seiner Unterseiten ist
 function isActive(item: NavItem, pathname: string): boolean {
@@ -29,7 +33,7 @@ function useMenuLayer(open: boolean, close: () => void) {
   }, [open, close])
 }
 
-export default function Navbar({ navigation, cta }: { navigation: NavItem[]; cta: LinkItem }) {
+export default function Navbar({ navigation, cta, latestNews }: { navigation: NavItem[]; cta: LinkItem; latestNews: NewsTeaser[] }) {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
@@ -66,6 +70,7 @@ export default function Navbar({ navigation, cta }: { navigation: NavItem[]; cta
                 <Dropdown
                   key={item.label}
                   item={item}
+                  news={item.featureNews ? latestNews : undefined}
                   active={isActive(item, pathname)}
                   open={openDropdown === item.label}
                   onOpenChange={(open) => setOpenDropdown(open ? item.label : null)}
@@ -217,11 +222,13 @@ function MobileSection({
 // Aufklappmenü am Desktop: öffnet per Klick oder Tastatur, schließt bei Klick daneben oder Escape
 function Dropdown({
   item,
+  news,
   active,
   open,
   onOpenChange,
 }: {
   item: NavItem
+  news?: NewsTeaser[]
   active: boolean
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -251,7 +258,8 @@ function Dropdown({
   return (
     <li
       ref={ref}
-      className="relative"
+      // Mega-Menü richtet sich am Header aus (sticky, also positioniert), das kleine Menü am Menüpunkt
+      className={news ? undefined : 'relative'}
       onBlur={(event) => {
         // schließen, sobald der Fokus das Menü per Tab verlässt
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) onOpenChange(false)
@@ -267,7 +275,8 @@ function Dropdown({
         {item.label}
         <Icon name="keyboard_arrow_down" className={`size-5 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
-      {open && (
+      {open && news && <MegaPanel id={panelId} item={item} news={news} onNavigate={() => onOpenChange(false)} />}
+      {open && !news && (
         <div id={panelId} className="absolute top-full left-1/2 mt-3 w-80 -translate-x-1/2 border border-line bg-white p-2 shadow-xl shadow-navy/10">
           <ul>
             {item.children?.map((child) => (
@@ -285,5 +294,84 @@ function Dropdown({
         </div>
       )}
     </li>
+  )
+}
+
+// Mega-Menü über die volle Breite: links die Unterseiten in zwei Spalten, rechts die neuesten News
+function MegaPanel({ id, item, news, onNavigate }: { id: string; item: NavItem; news: NewsTeaser[]; onNavigate: () => void }) {
+  const pathname = usePathname()
+  return (
+    <div
+      id={id}
+      // Auch bei Links auf die aktuelle Seite schließen (dort gibt es keinen Seitenwechsel)
+      onClick={(event) => (event.target as HTMLElement).closest('a') && onNavigate()}
+      className="absolute inset-x-0 top-full max-h-[calc(100svh-4.5rem)] overflow-y-auto border-t border-line bg-white shadow-xl shadow-navy/10"
+    >
+      <div className="mx-auto grid max-w-7xl grid-cols-12 gap-10 px-6 py-8 lg:px-8">
+        <ul className="col-span-6 grid grid-cols-2 content-start gap-x-6 gap-y-1">
+          {item.children?.map((child) => (
+            <li key={child.href}>
+              <Link
+                href={child.href}
+                aria-current={child.href === pathname ? 'page' : undefined}
+                className="group -mx-4 block px-4 py-3 transition-colors hover:bg-paper"
+              >
+                <span className="flex items-center justify-between text-sm font-bold text-navy group-hover:text-red group-aria-[current]:text-red">
+                  {child.label}
+                  <Icon name="arrow_forward" className="size-4 opacity-0 transition-opacity group-hover:opacity-100" />
+                </span>
+                {child.description && <span className="mt-0.5 block text-sm text-slate-blue">{child.description}</span>}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {news.length > 0 && (
+          <div className="col-span-6 bg-paper p-5">
+            <div className="flex items-baseline justify-between">
+              <p className="text-xs font-semibold tracking-[0.25em] text-slate-blue uppercase">Neueste Beiträge</p>
+              <Link href="/aktuelles" className="group inline-flex items-center gap-1 text-sm font-semibold text-navy transition-colors hover:text-red">
+                Alle News
+                <Icon name="arrow_forward" className="size-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+            <ul className="mt-4 grid grid-cols-2 gap-4">
+              {news.map((post) => (
+                <li key={post.slug}>
+                  <Link href={`/aktuelles/${post.slug}`} className="group flex h-full flex-col border border-line bg-white transition-colors hover:border-navy">
+                    <div className="relative aspect-[2/1] overflow-hidden bg-paper">
+                      {post.image ? (
+                        <Image
+                          src={post.image.url}
+                          alt=""
+                          fill
+                          sizes="280px"
+                          style={{ objectPosition: post.image.focus }}
+                          className="object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none"
+                        />
+                      ) : (
+                        // Platzhalter ohne Foto wie bei den News-Karten
+                        <div className="flex h-full items-center justify-center opacity-60 grayscale">
+                          <Logo />
+                        </div>
+                      )}
+                      <span className="absolute top-2 left-2 bg-red px-1.5 py-0.5 text-[0.6875rem] font-semibold tracking-wide text-white uppercase">
+                        {newsCategoryLabels[post.category]}
+                      </span>
+                    </div>
+                    <div className="flex flex-1 flex-col p-3">
+                      <time dateTime={post.date} className="text-xs text-slate-blue">
+                        {formatDate(post.date)}
+                      </time>
+                      <p className="mt-1 line-clamp-2 text-sm/5 font-extrabold tracking-tight text-pretty text-navy group-hover:text-red">{post.title}</p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
   )
 }
