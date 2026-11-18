@@ -81,7 +81,7 @@ export default function HeroSlideshow({ images, priority }: { images: Media[]; p
               >
                 {/* Punkt, der aktive wird zur Pille und füllt sich während der Anzeigedauer */}
                 <span
-                  className={`block h-2 overflow-hidden rounded-full shadow-[0_1px_3px_rgb(0_0_0/0.45)] transition-[width,background-color] duration-300 motion-reduce:transition-none ${
+                  className={`block h-2 overflow-hidden rounded-full transition-[width,background-color] duration-300 motion-reduce:transition-none ${
                     index === active ? 'w-6 bg-white/50' : 'w-2 bg-white/60 group-hover:bg-white'
                   }`}
                 >
