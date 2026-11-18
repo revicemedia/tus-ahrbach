@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { ActionLinks } from '@/components/ui/ActionLink'
 import type { HeroBlock } from '@/lib/cms/types'
+import HeroSlideshow from './HeroSlideshow'
 
 const rise = 'animate-[hero-rise_0.7s_ease-out_both] motion-reduce:animate-none'
 
@@ -8,11 +9,13 @@ export default function Hero({ block, priority = false }: { block: HeroBlock; pr
   return block.variant === 'home' ? <HomeHero block={block} priority={priority} /> : <PageHero block={block} priority={priority} />
 }
 
-// Großes Foto über die volle Breite, Text links auf dunklem Verlauf
+// Großes Foto über die volle Breite, Text links auf dunklem Verlauf. Mit slides blenden mehrere Fotos ineinander.
 function HomeHero({ block, priority }: { block: HeroBlock; priority: boolean }) {
+  const images = [block.image, ...(block.slides ?? [])].filter((image) => image !== undefined)
   return (
     <section className="relative isolate overflow-hidden bg-navy">
-      {block.image && (
+      {images.length > 1 && <HeroSlideshow images={images} priority={priority} />}
+      {images.length === 1 && block.image && (
         <Image
           alt=""
           src={block.image.url}

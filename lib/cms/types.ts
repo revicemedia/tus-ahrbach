@@ -230,6 +230,8 @@ export type HeroBlock = BlockBase & {
   title: string
   text?: string
   image?: Media
+  // nur bei home: weitere Bilder, die nach image im Hintergrund überblenden (Text bleibt stehen)
+  slides?: Media[]
   facts?: string[]
   actions?: LinkItem[]
 }

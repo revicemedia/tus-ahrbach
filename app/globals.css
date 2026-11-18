@@ -62,6 +62,13 @@ html {
   }
 }
 
+/* Fortschrittsbalken der Hero-Slideshow, Dauer wie SLIDE_MS in HeroSlideshow.tsx */
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+}
+
 @keyframes page-in {
   from {
     opacity: 0;

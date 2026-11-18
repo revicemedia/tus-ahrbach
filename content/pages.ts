@@ -1,5 +1,5 @@
 import type { Page } from '@/lib/cms/types'
-import { media } from './media'
+import { media, teamMedia } from './media'
 
 
 // Sammlung "Seiten". Jede Seite ist eine Liste von Blöcken, die der Vorstand später im CMS
@@ -20,6 +20,12 @@ export const pages: Page[] = [
         title: 'Der lebendige Sportverein im Westerwald',
         text: 'Fußball, Handball, Tanzen und Turnen: Beim TuS Ahrbach findet die ganze Familie ihren Sport, vom Eltern-Kind-Turnen bis zu den Alten Herren.',
         image: media.fussballFinale,
+        slides: [
+          { ...media.beatDancers, focus: 'center 40%' },
+          { ...teamMedia.handballWbJugend, focus: 'center 35%' },
+          { ...media.fussballFrauenJubilaeum, focus: 'center 70%' },
+          { ...media.elternKindTurnen, focus: 'center 35%' },
+        ],
         actions: [
           { label: 'Sport finden', href: '/sport' },
           { label: 'Mitglied werden', href: '/mitglied-werden' },
